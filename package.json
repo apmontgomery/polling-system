@@ -9,6 +9,9 @@
     "build": "nuxt build",
     "start": "nuxt start",
     "generate": "nuxt generate",
+    "test": "yarn ava",
+    "test:watch": "yarn ava --watch",
+    "test:update": "yarn ava --update-snapshots",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
     "precommit": "npm run lint"
   },
@@ -16,10 +19,20 @@
     "nuxt": "^1.0.0"
   },
   "devDependencies": {
-    "cross-env": "^5.0.1",
+    "ava": "^1.0.0-beta.1",
     "babel-eslint": "^8.2.1",
+    "browser-env": "^3.2.5",
+    "cross-env": "^5.0.1",
     "eslint": "^4.15.0",
     "eslint-loader": "^1.7.1",
-    "eslint-plugin-vue": "^4.0.0"
+    "eslint-plugin-vue": "^4.0.0",
+    "jsdom": "^11.6.2"
+  },
+  "ava": {
+    "sources": [
+      "**/*.{js,vue}",
+      "!dist/**/*",
+      "!.nuxt/**/*"
+    ]
   }
 }
