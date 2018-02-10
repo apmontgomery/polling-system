@@ -72,13 +72,18 @@ export default {
       return this.todaysPoll.answer.options.map(x => ({ label: x.label, sid: x.sid, id: x.id, responseCount: x._respondedMeta.count }))
     }
   },
+  data () {
+    return {
+      fingerprint: ''
+    }
+  },
   mounted () {
     if (process.browser) {
       window.onNuxtReady((app) => {
-        // new Fingerprint2().get(function(result, components){
-        //   console.log(result); //a hash, representing your device fingerprint
-        //   console.log(components); // an array of FP components
-        // })
+        new Fingerprint2().get(function(result, components){
+          console.log(result); //a hash, representing your device fingerprint
+          this.fingerprint = result
+        })
       })
     }
   }

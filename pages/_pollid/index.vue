@@ -133,6 +133,9 @@ export default {
     }
   },
   methods: {
+    async removeVote(optId) {
+      console.log("to do later")
+    },
     async vote(optId) {
       try {
         await this.$apollo.mutate({

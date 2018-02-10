@@ -1,6 +1,7 @@
 # polling-system
 
 > A Sample Polling System for SCMP.com
+> I'm at the 4 hour mark.  
 
 # Assumptions
 - users aren't logged in.  We'll use a device fingerprint to ensure people don't vote more than once on single type answers (I'm not sure how to test device fingerprints so will leave it out until end-- more research needed)
@@ -11,9 +12,9 @@
 [x] create local graphql server
 [x] add apollo for graphql client
 [x] add bulma for basic styling
-[] customize bulma to match target ui
+[] customize bulma to match target ui (in progres)
 [] draw graphs with canvas
-[] test, test, test
+[] test, test, test half done
 
 
 # Next Steps
