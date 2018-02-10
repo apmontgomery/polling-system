@@ -1,0 +1,18 @@
+query Poll($sId: Int!) {
+  Poll(sId: $sId) {
+    title
+    sId
+    publishedDate
+    answer{
+      type
+      options{
+        label
+        sid
+        id
+        _respondedMeta{
+          count
+        }
+      }
+    }
+  }
+}

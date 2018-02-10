@@ -1,0 +1,9 @@
+mutation ($optionId: ID!, $deviceId: String!) {
+  createResponse(optionId: $optionId, deviceId: $deviceId) {
+    option{
+      _respondedMeta{
+        count
+      }
+    }
+  }
+}

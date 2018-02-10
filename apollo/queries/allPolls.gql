@@ -1,0 +1,18 @@
+{
+  allPolls{
+    sId
+    publishedDate
+    title
+    answer{
+      type
+      options{
+        label
+        id
+        sid
+        _respondedMeta{
+          count
+        }
+      }
+    }
+  }
+}

@@ -7,11 +7,11 @@
 
 # Todos
 [x] create mock data
-[s] setup basic layouts
-[] create local graphql server
-[] add apollo for graphql client
-[] add bulma for basic styling
-[] customize bulmla to match target ui
+[x] setup basic layouts
+[x] create local graphql server
+[x] add apollo for graphql client
+[x] add bulma for basic styling
+[] customize bulma to match target ui
 [] draw graphs with canvas
 [] test, test, test
 
@@ -30,6 +30,8 @@ $ graphcool local up
 $ cd server
 $ graphcool deploy
 # select local
+
+# add simple API uri to apollo/client-configs/default.js on line 11
 ```
 
 ``` bash

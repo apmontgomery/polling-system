@@ -1,0 +1,48 @@
+@import "~bulma/sass/utilities/_all.sass";
+// Set your colors
+$primary: #133B6B;
+$secondary: #E46C2C;
+
+$secondary-invert: findColorInvert($secondary);
+
+// Setup $colors to use as bulma classes (e.g. 'is-twitter')
+$colors: (
+  "white": ($white, $black),
+  "black": ($black, $white),
+  "light": ($light, $light-invert),
+  "dark": ($dark, $dark-invert),
+  "primary": ($primary, $primary-invert),
+  "link": ($link, $link-invert),
+  "info": ($info, $info-invert),
+  "success": ($success, $success-invert),
+  "warning": ($warning, $warning-invert),
+  "danger": ($red, $red-invert),
+  "secondary":($secondary, $secondary-invert)
+);
+
+// Links
+// $link: $vfa;
+// $link-invert: $white;
+// $link-visited: $grey;
+// $link-focus-border: $vfa;
+// $tabs-link-color: $white;
+
+// Tabs
+
+// $tabs-link-color: $vfa;
+// $tabs-link-active-color: $white;
+// $tabs-boxed-link-radius: $radius;
+// $tabs-boxed-link-hover-background-color: $background;
+// $tabs-boxed-link-hover-border-bottom-color: $vfa;
+
+// $tabs-boxed-link-active-background-color: $vfa;
+// $tabs-boxed-link-active-border-color: $vfa;
+// $tabs-boxed-link-active-border-bottom-color: transparent;
+
+
+$speed-slow: 150ms;
+$speed-slower: 250ms;
+
+
+@import "~bulma";
+@import "~buefy/src/scss/buefy";

@@ -27,24 +27,42 @@ module.exports = {
   ** Global CSS
   */
   css: [
+    {src: '~/assets/css/style.scss',
+    lang: 'sass'}
   ],
 
   /*
   ** Plugins to load before mounting the App
   */
   plugins: [
+    '~/plugins/buefy'
   ],
 
   /*
   ** Nuxt.js modules
   */
   modules: [
+    '@nuxtjs/apollo'
   ],
+
+  /*
+  ** apollo module options
+  */
+  apollo: {
+    clientConfigs: {
+      default: '~/apollo/client-configs/default.js'
+    }
+  },
 
   /*
   ** Build configuration
   */
   build: {
+    postcss: {
+      plugins: {
+        'postcss-custom-properties': false
+      }
+    },
     /*
     ** You can extend webpack config here
     */
