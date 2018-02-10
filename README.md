@@ -5,6 +5,17 @@
 ## Build Setup
 
 ``` bash
+# install graphcool
+
+# start local Graphcool cluster
+$ graphcool local up
+
+# deploy graphql locally
+$ cd server
+$ graphcool deploy
+# select local
+
+``` bash
 # install dependencies
 $ yarn install
 
