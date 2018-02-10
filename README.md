@@ -2,6 +2,22 @@
 
 > A Sample Polling System for SCMP.com
 
+# Assumptions
+- users aren't logged in.  We'll use a device fingerprint to ensure people don't vote more than once on single type answers (I'm not sure how to test device fingerprints so will leave it out until end-- more research needed)
+
+# Todos
+[x] create mock data
+[s] setup basic layouts
+[] create local graphql server
+[] add apollo for graphql client
+[] add bulma for basic styling
+[] customize bulmla to match target ui
+[] draw graphs with canvas
+[] test, test, test
+
+
+# Next Steps
+
 ## Build Setup
 
 ``` bash
@@ -14,6 +30,7 @@ $ graphcool local up
 $ cd server
 $ graphcool deploy
 # select local
+```
 
 ``` bash
 # install dependencies
@@ -29,5 +46,3 @@ $ yarn start
 # generate static project
 $ yarn run generate
 ```
-
-For detailed explanation on how things work, checkout [Nuxt.js docs](https://nuxtjs.org).
