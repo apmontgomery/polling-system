@@ -80,11 +80,9 @@ export default {
   mounted () {
     if (process.browser) {
       if (!this.fingerprint){
-        window.onNuxtReady((app) => {
-          new Fingerprint2().get(function(result, components){
-            console.log(result); //a hash, representing your device fingerprint
-            this.fingerprint = result
-          })
+        new Fingerprint2().get((result, components) => {
+          console.log(result); //a hash, representing your device fingerprint
+          this.fingerprint = result
         })
       }
     }
