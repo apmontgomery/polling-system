@@ -79,12 +79,14 @@ export default {
   },
   mounted () {
     if (process.browser) {
-      window.onNuxtReady((app) => {
-        new Fingerprint2().get(function(result, components){
-          console.log(result); //a hash, representing your device fingerprint
-          this.fingerprint = result
+      if (!this.fingerprint){
+        window.onNuxtReady((app) => {
+          new Fingerprint2().get(function(result, components){
+            console.log(result); //a hash, representing your device fingerprint
+            this.fingerprint = result
+          })
         })
-      })
+      }
     }
   }
 }

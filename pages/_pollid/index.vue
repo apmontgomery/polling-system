@@ -22,103 +22,7 @@ export default {
   },
   data () {
     return {
-      pollResults: [
-        {
-          id: 1,
-          options: [
-            {
-              id: 1,
-              label: "yes",
-              responses: 24
-            },
-            {
-              id: 2,
-              label: "no",
-              responses: 163
-            }
-          ]
-        },
-        {
-          id: 2,
-          options: [
-            {
-              id: 3,
-              label: "yes",
-              responses: 24
-            },
-            {
-              id: 4,
-              label: "no",
-              responses: 163
-            }
-          ]
-        },
-        {
-          id: 3,
-          options: [
-            {
-              id: 5,
-              label: "yes",
-              responses: 24
-            },
-            {
-              id: 6,
-              label: "no",
-              responses: 163
-            }
-          ]
-        },
-        {
-          id: 4,
-          options: [
-            {
-              id: 7,
-              label: "Hong Kong",
-              responses: 24
-            },
-            {
-              id: 8,
-              label: "China",
-              responses: 163
-            },
-            {
-              id: 9,
-              label: "Australia",
-              responses: 163
-            },
-            {
-              id: 10,
-              label: "Thailand",
-              responses: 163
-            },
-            {
-              id: 11,
-              label: "Korea",
-              responses: 163
-            },
-            {
-              id: 12,
-              label: "Japan",
-              responses: 163
-            }
-          ]
-        },
-        {
-          id: 5,
-          options: [
-            {
-              id: 13,
-              label: "yes",
-              responses: 24
-            },
-            {
-              id: 14,
-              label: "no",
-              responses: 163
-            }
-          ]
-        },
-      ]
+      fingerprint: ''
     }
   },
   apollo: {
@@ -141,7 +45,7 @@ export default {
         await this.$apollo.mutate({
           mutation: createReponse,
           variables: {
-            deviceId: `${Math.random().toString()}`, // using random device id for now
+            deviceId: `${this.fingerprint || Math.random().toString()}`, // using random device id for now
             optionId: optId
           }
         })
@@ -159,6 +63,18 @@ export default {
     },
     routeOptions() {
       return this.Poll.answer.options.map(x => ({ label: x.label, sid: x.sid, id: x.id, responseCount: x._respondedMeta.count }))
+    }
+  },
+  mounted () {
+    if (process.browser) {
+      if (!this.fingerprint){
+        window.onNuxtReady((app) => {
+          new Fingerprint2().get(function(result, components){
+            console.log(result); //a hash, representing your device fingerprint
+            this.fingerprint = result
+          })
+        })
+      }
     }
   }
 }
