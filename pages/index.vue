@@ -47,7 +47,7 @@
 
 <script>
 import polls from '~/static/poll.json'
-// import Fingerprint2 from 'fingerprintjs2'
+import Fingerprint2 from 'fingerprintjs2'
 import allPolls from '~/apollo/queries/allPolls'
 
 export default {

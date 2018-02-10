@@ -14,6 +14,7 @@
 <script>
 import polls from '~/static/poll.json'
 import poll from '~/apollo/queries/poll'
+import Fingerprint2 from 'fingerprintjs2'
 import createReponse from '~/apollo/mutations/createResponse'
 
 export default {
