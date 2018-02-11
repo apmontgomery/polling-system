@@ -54,7 +54,8 @@ import createReponse from '~/gql/mutations/createResponse.gql'
 import myAnswers from '~/gql/queries/myAnswers.gql'
 import { request } from 'graphql-request'
 import { print } from 'graphql'
-const simpleApi = 'http://localhost:60000/simple/v1/cjdh1zc4x00040166ffqq0fgc'
+const simpleApi = process.env.simpleApi
+// const simpleApi = 'http://localhost:60000/simple/v1/cjdh1zc4x00040166ffqq0fgc'
 
 export default {
   async asyncData ({params}){

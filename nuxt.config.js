@@ -17,6 +17,9 @@ module.exports = {
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
     ]
   },
+  env: {
+    simpleApi: process.env.SIMPLE_API || 'http://localhost:60000/simple/v1/cjdh1zc4x00040166ffqq0fgc'
+  },
 
   /*
   ** Customize the progress-bar color
