@@ -1,8 +1,6 @@
 <template>
-  <div class="section">
-    <div class="container">
-      <nuxt/>
-    </div>
+  <div class="container">
+    <nuxt/>
   </div>
 </template>
 
