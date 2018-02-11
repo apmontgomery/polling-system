@@ -17,6 +17,9 @@ module.exports = {
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
     ]
   },
+  env: {
+    simpleApi: process.env.SIMPLE_API || 'http://localhost:60000/simple/v1/cjdh1zc4x00040166ffqq0fgc'
+  },
 
   /*
   ** Customize the progress-bar color
@@ -35,24 +38,24 @@ module.exports = {
   ** Plugins to load before mounting the App
   */
   plugins: [
-    '~/plugins/buefy'
+    // '~/plugins/buefy'
   ],
 
   /*
   ** Nuxt.js modules
   */
   modules: [
-    '@nuxtjs/apollo'
+    // '@nuxtjs/apollo'
   ],
 
   /*
   ** apollo module options
   */
-  apollo: {
-    clientConfigs: {
-      default: '~/apollo/client-configs/default.js'
-    }
-  },
+  // apollo: {
+  //   clientConfigs: {
+  //     default: '~/apollo/client-configs/default.js'
+  //   }
+  // },
 
   /*
   ** Build configuration
@@ -67,6 +70,11 @@ module.exports = {
     ** You can extend webpack config here
     */
     extend(config, ctx) {
+      config.module.rules.push({
+        test: /\.(graphql|gql)$/,
+        exclude: /node_modules/,
+        loader: 'graphql-tag/loader'
+      })
       // Run ESLint on save
       if (ctx.isDev && ctx.isClient) {
         config.module.rules.push({

@@ -1,0 +1,12 @@
+query Poll($sId: Int!, $deviceId: String!) {
+  Poll(sId: $sId){
+    answer{
+      options{
+        id
+        responded(filter:{deviceId: $deviceId}){
+          id
+        }
+      }
+    }
+  }
+}
