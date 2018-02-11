@@ -21,9 +21,9 @@
 
 <script>
 import polls from '~/static/poll.json'
-import poll from '~/apollo/queries/poll'
+// import poll from '~/assets/queries/poll'
 import Fingerprint2 from 'fingerprintjs2'
-import createReponse from '~/apollo/mutations/createResponse'
+// import createReponse from '~/assets/mutations/createResponse'
 let drawing
 
 export default {

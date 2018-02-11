@@ -15,7 +15,16 @@
                 :key="i" class="field is-grouped">
                 <div class="control is-expanded">
                   <button
-                    :class="['button', 'is-medium', 'has-text-centered', 'is-uppercase', 'has-text-weight-bold', 'is-radiusless', `is-c${i}`]"
+                    :class="[
+                      'button',
+                      'is-medium',
+                      'has-text-centered',
+                      'is-uppercase',
+                      'has-text-weight-bold',
+                      'is-radiusless',
+                      `is-c${i}`
+                    ]"
+                    :disabled="myAnswers.filter(x => x.responded.length > 0).map(x => x.id).indexOf(option.id) > -1 || votes.indexOf(option.id) > -1"
                     @click="vote(option.id)">{{ option.label }}</button>
                 </div>
               </div>
@@ -37,35 +46,26 @@
 </template>
 
 <script>
-import polls from '~/static/poll.json'
-import poll from '~/apollo/queries/poll'
+// import polls from '~/static/poll.json'
 import Fingerprint2 from 'fingerprintjs2'
-import createReponse from '~/apollo/mutations/createResponse'
 import DonutChart from '~/components/DonutChart.vue'
+import poll from '~/gql/queries/poll.gql'
+import createReponse from '~/gql/mutations/createResponse.gql'
+import myAnswers from '~/gql/queries/myAnswers.gql'
+import { request } from 'graphql-request'
+import { print } from 'graphql'
+const simpleApi = 'http://localhost:60000/simple/v1/cjdh1zc4x00040166ffqq0fgc'
 
 export default {
-  asyncData: ({params}) => ({
-    pollid: parseInt(params.pollid)
-  }),
+  async asyncData ({params}){
+    return await request(simpleApi, print(poll), { sId: parseInt(params.pollid)})
+  },
   data () {
     return {
       fingerprint: '',
-      Poll: {}
-    }
-  },
-  apollo: {
-    Poll: {
-      query: poll,
-      prefetch: ({ route }) => {
-        return {
-          sId: parseInt(route.params.pollid),
-        }
-      },
-      variables () {
-        return {
-          sId: this.pollid,
-        }
-      }
+      Poll: {},
+      votes: [],
+      myAnswers: []
     }
   },
   methods: {
@@ -73,21 +73,30 @@ export default {
       console.log("to do later")
     },
     async vote(optId) {
+      // console.log(this.Poll.answer.type === 'SINGLE')
+      if (this.Poll.answer.type === 'SINGLE'){
+        this.votes = []
+        this.votes.push(optId)
+        console.log(this.votes)
+      } else {
+        this.votes.push(optId)
+      }
       try {
-        await this.$apollo.mutate({
-          mutation: createReponse,
-          variables: {
-            deviceId: `${this.fingerprint || Math.random().toString()}`, // using random device id for now
-            optionId: optId
-          }
-        })
-        await this.$apollo.queries.Poll.refetch()
-        await this.draw()
+        await request(simpleApi, print(createReponse), {optionId: optId, deviceId: this.fingerprint})
+        await this.fetchPoll()
+        await this.fetchMyAnswers()
       } catch (error) {
         // TODO: give user feedback
         console.log(error)
         console.log("your vote has already been recorded")
+        await this.fetchMyAnswers()
       }
+    },
+    async fetchPoll() {
+      let Poll = (await request(simpleApi, print(poll), { sId: parseInt(this.$route.params.pollid) })).Poll
+    },
+    async fetchMyAnswers() {
+      this.myAnswers = (await request(simpleApi, print(myAnswers), {sId: parseInt(this.$route.params.pollid), deviceId: this.fingerprint})).Poll.answer.options
     }
   },
   computed: {
@@ -107,12 +116,12 @@ export default {
   mounted () {
     if (process.browser) {
       if (!this.fingerprint){
-        // new Fingerprint2().get((result, components) => {
-        //   console.log(result) //a hash, representing your device fingerprint
-        //   this.fingerprint = result
-        // })
+        new Fingerprint2().get((result, components) => {
+          // console.log(result) //a hash, representing your device fingerprint
+          this.fingerprint = result
+          this.fetchMyAnswers()
+        })
       }
-      // window.onNuxtReady((app) => this.draw())
     }
   }
 }

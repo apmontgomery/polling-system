@@ -48,7 +48,7 @@
 <script>
 import polls from '~/static/poll.json'
 // import Fingerprint2 from 'fingerprintjs2'
-import allPolls from '~/apollo/queries/allPolls'
+// import allPolls from '~/assets/queries/allPolls'
 import DonutChart from '~/components/DonutChart.vue'
 
 export default {

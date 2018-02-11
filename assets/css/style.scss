@@ -58,30 +58,6 @@ $colors: (
 
 $border: $grey-light;
 
-// Links
-// $link: $vfa;
-// $link-invert: $white;
-// $link-visited: $grey;
-// $link-focus-border: $vfa;
-// $tabs-link-color: $white;
-
-// Tabs
-
-// $tabs-link-color: $vfa;
-// $tabs-link-active-color: $white;
-// $tabs-boxed-link-radius: $radius;
-// $tabs-boxed-link-hover-background-color: $background;
-// $tabs-boxed-link-hover-border-bottom-color: $vfa;
-
-// $tabs-boxed-link-active-background-color: $vfa;
-// $tabs-boxed-link-active-border-color: $vfa;
-// $tabs-boxed-link-active-border-bottom-color: transparent;
-
-
-
-$speed-slow: 150ms;
-$speed-slower: 250ms;
-
 $subtitle-weight: $weight-semibold;
 
 .title {
@@ -105,4 +81,3 @@ $subtitle-weight: $weight-semibold;
 }
 
 @import "~bulma";
-@import "~buefy/src/scss/buefy";

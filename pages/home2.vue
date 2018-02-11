@@ -22,7 +22,6 @@
           </div>
           <div class="tile is-child">
             <donut-chart :chartData="todaysOptions"></donut-chart>
-            <!-- <donut-chart :chartData="[{label: 'Yes', color: '#E46C2C', value: 13}, {label: 'No', color: '#133B6B', value: 87}]"></donut-chart> -->
           </div>
         </div>
         <div class="tile is-child">
@@ -62,34 +61,39 @@
 </template>
 
 <script>
-import polls from '~/static/poll.json'
-// import Fingerprint2 from 'fingerprintjs2'
-import allPolls from '~/apollo/queries/allPolls'
+// import polls from '~/static/poll.json'
+import Fingerprint2 from 'fingerprintjs2'
 import DonutChart from '~/components/DonutChart.vue'
-import createReponse from '~/apollo/mutations/createResponse'
+import allPolls from '~/gql/queries/allPolls.gql'
+import createReponse from '~/gql/mutations/createResponse.gql'
+import { request } from 'graphql-request'
+import { print } from 'graphql'
+const simpleApi = 'http://localhost:60000/simple/v1/cjdh1zc4x00040166ffqq0fgc'
 
 export default {
-  apollo: {
-    allPolls () {
-      return {
-        prefetch: true,
-        query: allPolls
-      }
-    }
+  name: 'home2',
+  async asyncData ({ params }) {
+    console.log(print(allPolls))
+    let polldata
+    await request(simpleApi, print(allPolls)).then(data => {
+      console.log(data)
+      polldata = data
+      })
+    return polldata
   },
   components: {
     DonutChart
   },
   computed: {
     sortedPolls() {
-      let sortedpolls = this.allPolls ? [...this.allPolls] : [...polls]
+      let sortedpolls = [...this.allPolls]
       sortedpolls.sort(function (a,b) {
         return b.publishedDate - a.publishedDate
         })
       return sortedpolls
     },
     todaysPoll() {
-      return this.sortedPolls[0]
+      return this.allPolls[0]
     },
     todaysOptions() {
       return this.todaysPoll.answer.options.map(x => ({ label: x.label, sid: x.sid, id: x.id, value: x._respondedMeta.count }))
@@ -109,20 +113,18 @@ export default {
     },
     async vote(optId) {
       try {
-        await this.$apollo.mutate({
-          mutation: createReponse,
-          variables: {
-            deviceId: `${this.fingerprint || Math.random().toString()}`, // using random device id for now
-            optionId: optId
-          }
-        })
-        await this.$apollo.queries.allPolls.refetch()
-        // await this.draw()
+        await request(simpleApi, print(createReponse), {optionId: optId, deviceId: this.fingerprint})
+        await this.fetchAllPolls()
       } catch (error) {
         // TODO: give user feedback
         console.log(error)
         console.log("your vote has already been recorded")
       }
+    },
+    async fetchAllPolls() {
+      let ap = await request(simpleApi, print(allPolls))
+      console.log(ap.allPolls)
+      this.allPolls = ap.allPolls
     }
   },
   data () {
@@ -134,10 +136,10 @@ export default {
   mounted () {
     if (process.browser) {
       if (!this.fingerprint){
-        // new Fingerprint2().get((result, components) => {
-        //   console.log(result); //a hash, representing your device fingerprint
-        //   this.fingerprint = result
-        // })
+        new Fingerprint2().get((result, components) => {
+          // console.log(result); //a hash, representing your device fingerprint
+          this.fingerprint = result
+        })
       }
     }
   }
