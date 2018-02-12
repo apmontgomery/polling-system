@@ -4,7 +4,7 @@
     <div class="tile is-child">
       <h2 class="title is-2 is-marginless">{{ Poll.title || 'Title' }}</h2>
       <hr>
-      <h2 class="subtitle is-6 is-pulled-right has-text-weight-light">PUBLISHED: {{ dateString }}</h2>
+      <h2 class="subtitle is-6 is-pulled-right has-text-weight-light is-hidden-touch">PUBLISHED: {{ dateString }}</h2>
     </div>
     <div class="tile is-vertical has-background-c2 is-child section">
       <div class="tile is-child">

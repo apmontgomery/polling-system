@@ -57,6 +57,16 @@ module.exports = {
   //   }
   // },
 
+  generate: {
+    routes: [
+      '/1',
+      '/2',
+      '/3',
+      '/4',
+      '/5'
+    ]
+  },
+
   /*
   ** Build configuration
   */
