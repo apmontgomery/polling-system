@@ -1,5 +1,7 @@
 # polling-system
 
+ - updated to add a data import step
+
 > A Sample Polling System for SCMP.com
 > I'm at the 4 hour mark.  
 > did a little more cleanup this morning.  The assignment is now close to feature complete.  Of course there are plenty of next steps, including writing many more tests. 
@@ -34,6 +36,8 @@ $ graphcool local up
 $ cd server
 $ graphcool deploy
 # select local
+
+$ graphcool import --source export-2018-02-12T06:44:36.761Z.zip
 
 # add simpleAPI uri as 'SIMPLE_API' to environment variable
 ```
